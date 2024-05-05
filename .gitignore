@@ -1,0 +1,30 @@
+# Python
+*.pyc
+__pycache__
+
+# Environment
+env_*
+*_env
+.venv
+venv
+
+# IDE and development files
+.vscode
+.idea
+*.log
+nohup.out
+
+# Temp files
+api/temp
+
+*.env
+!test.env
+
+# Secrets
+*credential*
+
+test_report.html
+coverage.xml
+infrastructure/grants.sql
+tests/container_logs.txt
+.coverage

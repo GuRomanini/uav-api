@@ -1,0 +1,8 @@
+{
+  "httpRequest": {
+    "path": "/test_path"
+  },
+  "httpResponse": {
+    "body": "response OK"
+  }
+}

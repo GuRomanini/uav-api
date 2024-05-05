@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: base-api-deployment
+  labels:
+    k8s-app: base-api
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: base-api
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+    maxSurge: 55%
+    maxUnavailable: 30%
+  template:
+    metadata:
+      labels:
+        k8s-app: base-api
+        app: base-api-deployment
+    spec:
+      serviceAccountName: kubernetes-base-api
+      containers:
+      - name: base-api-container
+        image: ${DOCKER_IMAGE_TAG}
+        env:
+          - name: ENV_ID
+            value: "408369984461"
+          - name: GUNICORN_WORKERS
+            value: "2"
+          - name: GUNICORN_WORKER_TIMEOUT
+            value: "360"
+          - name: SERVICE_NAME
+            value: "base-api"
+          - name: API_PORT
+            value: "3000"
+          - name: APP_ENV
+            value: "dev"
+          - name: PROJECT_ENV
+            value: "qicredit-dev"
+          - name: DB_NAME
+            value: "base"
+          - name: DB_USER
+            value: "base-api-user"
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_PASSWORD
+            value: "base-api-db-password-secret"
+          - name: DB_HOST
+            value: "db-ip-address-secret"
+          - name: WEBHOOK_AUTH_TOKEN
+            value: "webhook-auth-token-secret"
+          - name: INTERNAL_TOKEN
+            value: "internal-auth-token-secret"
+          - name: GENIEKEY
+            value: "opsgenie-api-key-secret"
+          - name: PRIVATE_KEY_TEST
+            value: "private-key-test"
+          - name: PUBLIC_KEY_TEST
+            value: "public-key-test"
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: 930m
+            memory: 650Mi
+          requests:
+            cpu: 150m
+            memory: 300Mi
+        livenessProbe:
+          httpGet:
+            path: /health_check
+            port: 3000
+            httpHeaders:
+              - name: Authorization
+                value: "***"
+          initialDelaySeconds: 30
+          periodSeconds: 2
+          successThreshold: 1
+          failureThreshold: 150
+          timeoutSeconds: 2
+        readinessProbe:
+          httpGet:
+            path: /health_check
+            port: 3000
+            httpHeaders:
+              - name: Authorization
+                value: "***"
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          successThreshold: 2
+          failureThreshold: 3
+          timeoutSeconds: 2
+      terminationGracePeriodSeconds: 62
