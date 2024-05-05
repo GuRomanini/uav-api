@@ -1,7 +1,7 @@
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
-  name: base-api-backendconfig
+  name: service-handler-api-backendconfig
 spec:
   timeoutSec: 900
   connectionDraining:
@@ -10,17 +10,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: base-api-service
+  name: service-handler-api-service
   namespace: default
   annotations:
     cloud.google.com/neg: '{"ingress":true}'
-    cloud.google.com/backend-config: '{"ports": {"3000":"base-api-backendconfig"}}'
+    cloud.google.com/backend-config: '{"ports": {"3000":"service-handler-api-backendconfig"}}'
   labels:
-    k8s-app: base-api
+    k8s-app: service-handler-api
 spec:
   type: NodePort
   ports:
   - port: 3000
     targetPort: 3000
   selector:
-    k8s-app: base-api
+    k8s-app: service-handler-api

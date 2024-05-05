@@ -1,22 +1,4 @@
 import os
-from google.cloud import secretmanager
-
-
-def load_vars(var_name: str):
-    if os.environ.get("APP_ENV") == "local":
-        return os.environ.get(var_name)
-
-    secret_id = os.environ.get(var_name)
-    secret_load_string = f"projects/{ENV_ID}/secrets/{secret_id}/versions/latest"
-    try:
-        client = secretmanager.SecretManagerServiceClient()
-        requisition = client.access_secret_version(request={"name": secret_load_string})
-        return requisition.payload.data.decode("utf-8")
-    except Exception:
-        raise Exception(
-            f"Secret {secret_id} is worded incorrectly, empty, in an invalid environment or you don not have permission to load it"
-        )
-
 
 ENV_ID = os.environ.get("ENV_ID")
 SERVICE_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -46,8 +28,7 @@ with open("/certs/private.crt", "w") as file:
     file.write(PRIVATE_KEY)
 with open("/certs/public.crt", "w") as file:
     file.write(PUBLIC_KEY)
-
-
+    
 def check_variables():
     variable_names = [k for k in dir() if (k[:2] != "__" and not callable(globals()[k]))]
     variables_without_value = []

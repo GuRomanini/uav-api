@@ -1,5 +1,5 @@
-CREATE SCHEMA IF NOT EXISTS base;
-USE base;
+CREATE SCHEMA IF NOT EXISTS service_handler;
+USE service_handler;
 
 CREATE TABLE SampleEntityStatus(
     id		               INT NOT NULL UNIQUE AUTO_INCREMENT,

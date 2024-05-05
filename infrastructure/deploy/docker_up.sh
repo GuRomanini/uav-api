@@ -5,7 +5,7 @@ if [ "$1" != "" ]; then
   version=$(git rev-parse HEAD)
 
   tag=`echo "$1" | tr '[:upper:]' '[:lower:]'`
-  repo_name='base-api'
+  repo_name='service-handler-api'
 
   docker build -t $repo_name --build-arg COMMIT=$version --target=prod -f infrastructure/Dockerfile .
 
