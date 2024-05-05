@@ -1,0 +1,26 @@
+services:
+  db:
+    build:
+      context: ../
+      dockerfile: ./infrastructure/mysql.dockerfile
+
+    container_name: database
+
+    ports:
+      - "3306:3306"
+
+    environment:
+      MYSQL_ROOT_PASSWORD: default
+      MYSQL_USER: romanini
+      MYSQL_PASSWORD: default
+
+  api:
+    build:
+      context: ../
+      dockerfile: ./infrastructure/api.dockerfile
+    container_name: service-handler-api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      
