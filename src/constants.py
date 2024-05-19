@@ -1,33 +1,21 @@
-import os
+from os import environ, path
 
-ENV_ID = os.environ.get("ENV_ID")
-SERVICE_ROOT = os.path.abspath(os.path.dirname(__file__))
+ENV_ID = environ.get("ENV_ID")
+SERVICE_ROOT = path.abspath(path.dirname(__file__))
 SCHEMA_PATH = SERVICE_ROOT + "/schemas/"
 BYPASS_ENDPOINTS = ["/", "/health_check"]
 
-SERVICE_NAME = os.environ.get("SERVICE_NAME")
-COMMIT = os.environ.get("COMMIT")
-APP_ENV = os.environ.get("APP_ENV")
-PROJECT_ENV = os.environ.get("PROJECT_ENV")
+SERVICE_NAME = environ.get("SERVICE_NAME")
+APP_ENV = environ.get("APP_ENV")
 
+DB_PORT = environ.get("DB_PORT")
+DB_USER = environ.get("DB_USER")
+DB_NAME = environ.get("DB_NAME")
 
-DB_PORT = os.environ.get("DB_PORT")
-DB_USER = os.environ.get("DB_USER")
-DB_NAME = os.environ.get("DB_NAME")
+DB_HOST = environ.get("DB_HOST")
+DB_PASSWORD = environ.get("DB_PASSWORD")
 
-DB_HOST = load_vars("DB_HOST")
-DB_PASSWORD = load_vars("DB_PASSWORD")
-WEBHOOK_AUTH_TOKEN = load_vars("WEBHOOK_AUTH_TOKEN")
-INTERNAL_TOKEN = load_vars("INTERNAL_TOKEN")
-GENIEKEY = load_vars("GENIEKEY")
-PRIVATE_KEY = load_vars("PRIVATE_KEY_TEST")
-PUBLIC_KEY = load_vars("PUBLIC_KEY_TEST")
-
-os.makedirs("/certs", exist_ok=True)
-with open("/certs/private.crt", "w") as file:
-    file.write(PRIVATE_KEY)
-with open("/certs/public.crt", "w") as file:
-    file.write(PUBLIC_KEY)
+INTERNAL_TOKEN = environ.get("INTERNAL_TOKEN")
     
 def check_variables():
     variable_names = [k for k in dir() if (k[:2] != "__" and not callable(globals()[k]))]

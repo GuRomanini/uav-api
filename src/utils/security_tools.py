@@ -24,8 +24,8 @@ class SecurityTools:
             raise ForbiddenNotInternal()
 
     @staticmethod
-    def validate_existent_selected_agent(req: Request) -> str:
-        selected_agent_key = req.headers.get("SELECTED-AGENT")
-        if selected_agent_key is None:
+    def validate_existent_user_agent(req: Request) -> str:
+        user_agent = req.headers.get("USER-AGENT")
+        if user_agent is None:
             raise ForbiddenInexistentRequester()
-        return selected_agent_key
+        return user_agent

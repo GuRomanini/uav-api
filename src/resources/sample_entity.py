@@ -2,7 +2,6 @@ import falcon
 from falcon import Request, Response
 
 from controllers import SampleEntityController
-
 from utils.schema_handler import SchemaHandler
 from utils.security_tools import SecurityTools
 
@@ -10,7 +9,7 @@ from utils.security_tools import SecurityTools
 class SampleEntityResource:
     @SchemaHandler.validate("post_sample_entity.json")
     def on_post(self, req: Request, resp: Response):
-        requester_key = SecurityTools.validate_existent_selected_agent(req)
+        requester_key = SecurityTools.validate_existent_user_agent(req)
         sample_entity_controller = SampleEntityController(req.context.instance)
         sample_entity = sample_entity_controller.create_by_contract(requester_key, req.context.instance.media)
 

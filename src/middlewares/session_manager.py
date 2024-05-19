@@ -15,7 +15,7 @@ from constants import (
 class SessionManager:
     path = "mysql+pymysql://{}:{}@{}:{}/{}".format(DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME)
     engine = create_engine(path, echo=False, pool_recycle=3600)
-    session_class = sessionmaker(bind=engine)
+    session_class = sessionmaker(bind=engine, autoflush=False)
     ThreadSession = scoped_session(session_class)
 
     def process_resource(self, req, resp, resource, params):
