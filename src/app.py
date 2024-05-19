@@ -14,6 +14,7 @@ from resources.home import Home
 from resources.time import TimeResource
 from resources.sink import SinkResource
 from resources.sample_entity import SampleEntityResource
+from resources import ServiceRequestResource
 
 from constants import check_variables
 
@@ -56,6 +57,9 @@ def create():
         sample_entity_resource,
         suffix="by_xml",
     )
+
+    service_request_resource = ServiceRequestResource()
+    api.add_route("/service/request", service_request_resource)
 
     return api
 
