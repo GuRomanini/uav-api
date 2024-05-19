@@ -25,10 +25,14 @@ spec:
       - name: service-handler-api-container
         image: ${DOCKER_IMAGE_TAG}
         env:
+          - name: APP_ENV
+            value: "live"
           - name: GUNICORN_WORKERS
             value: "2"
           - name: GUNICORN_WORKER_TIMEOUT
             value: "360"
+          - name: "GUNICORN_RELOAD"
+            value: True
           - name: SERVICE_NAME
             value: "service-handler-api"
           - name: API_PORT
@@ -40,7 +44,7 @@ spec:
           - name: DB_USER
             value: "romanini"
           - name: DB_PORT
-            value: "5432"
+            value: "3306"
           - name: DB_PASSWORD
             value: "default"
           - name: DB_HOST
@@ -49,6 +53,8 @@ spec:
             value: "private-key-test"
           - name: PUBLIC_KEY_TEST
             value: "public-key-test"
+          - name: INTERNAL_TOKEN
+            value: "internal@123"
         ports:
         - containerPort: 3000
         resources:

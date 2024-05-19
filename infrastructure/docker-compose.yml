@@ -10,6 +10,7 @@ services:
       - "3306:3306"
 
     environment:
+      MYSQL_DATABASE: service_handler
       MYSQL_ROOT_PASSWORD: default
       MYSQL_USER: romanini
       MYSQL_PASSWORD: default
@@ -21,6 +22,21 @@ services:
     container_name: service-handler-api
     ports:
       - "3000:3000"
+
+    environment:
+      APP_ENV: local
+      GUNICORN_WORKERS: 2
+      GUNICORN_WORKER_TIMEOUT: 360
+      GUNICORN_RELOAD: True
+      SERVICE_NAME: service-handler-api
+      API_PORT: 3000
+      DB_NAME: service_handler
+      DB_USER: romanini
+      DB_PASSWORD: default
+      DB_PORT: 3306
+      DB_HOST: 0.0.0.0
+      INTERNAL_TOKEN: internal@123
+
     depends_on:
       - db
       
