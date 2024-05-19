@@ -6,7 +6,7 @@ from models import SampleEntityStatus
 
 class SampleEntity(Base):
     __tablename__ = "SampleEntity"
-    __table_args__ = {"schema": "base"}
+    __table_args__ = {"schema": "service_handler"}
 
     id = Column(Integer, primary_key=True)
     sample_entity_key = Column(String)
