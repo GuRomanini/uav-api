@@ -13,8 +13,7 @@ from resources.health_check import HealthcheckResource
 from resources.home import Home
 from resources.time import TimeResource
 from resources.sink import SinkResource
-from resources.sample_entity import SampleEntityResource
-from resources import ServiceRequestResource
+from resources import ServiceRequestResource, ServiceResource
 
 from constants import check_variables
 
@@ -44,22 +43,11 @@ def create():
     time_resource = TimeResource()
     api.add_route("/time", time_resource)
 
-    sample_entity_resource = SampleEntityResource()
-    api.add_route("/base/sample_entity", sample_entity_resource)
-    api.add_route(
-        "/base/sample_entity/{sample_entity_key}",
-        sample_entity_resource,
-        suffix="by_key",
-    )
-
-    api.add_route(
-        "/base/sample_entity/xml",
-        sample_entity_resource,
-        suffix="by_xml",
-    )
-
     service_request_resource = ServiceRequestResource()
     api.add_route("/service/request", service_request_resource)
+
+    service_resource = ServiceResource()
+    api.add_route("/service", service_resource)
 
     return api
 

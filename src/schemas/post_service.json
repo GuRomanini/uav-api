@@ -1,0 +1,25 @@
+{
+  "title": "PostServiceRequest",
+  "type": "object",
+  "properties": {
+    "service_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "service_type": {
+      "type": "string",
+      "enum": [
+        "command",
+        "data",
+        "event",
+        "stream"
+      ]
+    }
+  },
+  "required": [
+    "service_name",
+    "service_type"
+  ],
+  "additionalProperties": false
+}

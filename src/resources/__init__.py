@@ -1,1 +1,2 @@
 from resources.service_request_resource import ServiceRequestResource
+from resources.service_resource import ServiceResource
