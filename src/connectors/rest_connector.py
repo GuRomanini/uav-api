@@ -36,7 +36,7 @@ class RestConnector(metaclass=ABCMeta):
             to_log_json = {"payload": ""}
 
         self.logger.info(f"OUTGOING REQUEST {method} {url}", to_log_json)
-        start = datetime.now(tz=timezone.UTC)
+        start = datetime.now(tz=timezone.utc)
 
         if data:
             response = request(
@@ -57,7 +57,7 @@ class RestConnector(metaclass=ABCMeta):
                 verify=verify,
             )
 
-        end = datetime.now(tz=timezone.UTC)
+        end = datetime.now(tz=timezone.utc)
 
         base_response = BaseConnectorResponse(
             endpoint=endpoint,
