@@ -2,7 +2,7 @@ from errors import BaseException
 
 
 class InvalidSchema(BaseException):
-    code = "UCS000001"
+    code = "UAV000001"
 
     def __init__(self, __description) -> None:
         title = "Bad Request"

@@ -2,7 +2,7 @@ from errors import BaseException
 
 
 class ForbiddenNotMaster(BaseException):
-    code = "UCS000002"
+    code = "UAV000002"
 
     def __init__(self) -> None:
         title = "Forbidden"
@@ -13,7 +13,7 @@ class ForbiddenNotMaster(BaseException):
 
 
 class ForbiddenInexistentRequester(BaseException):
-    code = "UCS000003"
+    code = "UAV000003"
 
     def __init__(self) -> None:
         title = "Forbidden"
@@ -24,7 +24,7 @@ class ForbiddenInexistentRequester(BaseException):
 
 
 class ForbiddenNotInternal(BaseException):
-    code = "UCS000004"
+    code = "UAV000004"
 
     def __init__(self) -> None:
         title = "Forbidden"

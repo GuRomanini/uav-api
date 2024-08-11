@@ -32,7 +32,7 @@ class BaseException(Exception):
 
 
 class MethodNotAllowed(BaseException):
-    code = "UCS000405"
+    code = "UAV000405"
 
     def __init__(self) -> None:
         title = "Method not allowed"
@@ -43,7 +43,7 @@ class MethodNotAllowed(BaseException):
 
 
 class InternalError(BaseException):
-    code = "UCS000500"
+    code = "UAV000500"
 
     def __init__(self) -> None:
         title = "Internal Error"
@@ -54,7 +54,7 @@ class InternalError(BaseException):
 
 
 class NotFoundResource(BaseException):
-    code = "UCS000404"
+    code = "UAV000404"
 
     def __init__(self) -> None:
         title = "Resource not Found"
