@@ -49,7 +49,7 @@ class BaseError(BaseClassWithLogger):
 
         self.description = error_object[code]  # description is actually the entire error object
 
-        if error_object[code]["code"] == "UCS000007":  # use for rest_connector only
+        if error_object[code]["code"] == "UAV000007":  # use for rest_connector only
             self.code = kwargs["external_code"]
             self.title = kwargs["external_title"]
             self.http_status = "falcon.HTTP_" + str(status)
@@ -111,7 +111,7 @@ def request_error_handler(function):
             raise http_error
         except Exception as ex:
             raise BaseError(
-                code="UCS000500",
+                code="UAV000500",
                 exception=ex
                 # An internal error has occurred and its being investigated.
             ).http()
