@@ -8,10 +8,13 @@ from middlewares.context_creator import ContextCreator
 from middlewares.input_output import InputOutputMiddleware
 from middlewares.secure_headers import SecureHeaders
 
-from resources.health_check import HealthcheckResource
-from resources.home import Home
-from resources.time import TimeResource
-from resources.sink import SinkResource
+from resources import (
+    HealthcheckResource,
+    Home,
+    ServiceResource,
+    SinkResource,
+    TimeResource,
+)
 
 from constants import check_variables
 
@@ -39,6 +42,9 @@ def create():
 
     time_resource = TimeResource()
     api.add_route("/time", time_resource)
+
+    service_resource = ServiceResource()
+    api.add_route("/service", service_resource)
 
     return api
 
