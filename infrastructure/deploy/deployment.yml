@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: service-handler-api-deployment
+  name: uav-api-deployment
   labels:
-    k8s-app: service-handler-api
+    k8s-app: uav-api
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: service-handler-api
+      k8s-app: uav-api
   strategy:
    type: RollingUpdate
    rollingUpdate:
@@ -18,11 +18,11 @@ spec:
   template:
     metadata:
       labels:
-        k8s-app: service-handler-api
-        app: service-handler-api-deployment
+        k8s-app: uav-api
+        app: uav-api-deployment
     spec:
       containers:
-      - name: service-handler-api-container
+      - name: uav-api-container
         image: ${DOCKER_IMAGE_TAG}
         env:
           - name: APP_ENV
@@ -34,21 +34,13 @@ spec:
           - name: "GUNICORN_RELOAD"
             value: True
           - name: SERVICE_NAME
-            value: "service-handler-api"
+            value: "uav-api"
           - name: API_PORT
             value: "3000"
           - name: APP_ENV
             value: "local"
-          - name: DB_NAME
-            value: "base"
-          - name: DB_USER
-            value: "romanini"
-          - name: DB_PORT
-            value: "3306"
-          - name: DB_PASSWORD
-            value: "default"
-          - name: DB_HOST
-            value: "0.0.0.0"
+          - name: SERVICE_HANDLER_API_ADDRESS
+            value: "http://localhost:3000"
           - name: PRIVATE_KEY_TEST
             value: "private-key-test"
           - name: PUBLIC_KEY_TEST

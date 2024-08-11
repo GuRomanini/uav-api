@@ -1,6 +1,6 @@
 FROM python:3 AS base
 
-ARG PROJECT_NAME=service-handler-api
+ARG PROJECT_NAME=uav-api
 RUN apt-get update
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV

@@ -4,7 +4,6 @@ from utils.logger import LogHandler
 from utils.xml_handler import XMLHandler
 from errors import APIErrorHandler, BaseException, error_verification
 
-from middlewares.session_manager import SessionManager
 from middlewares.context_creator import ContextCreator
 from middlewares.input_output import InputOutputMiddleware
 from middlewares.secure_headers import SecureHeaders
@@ -13,7 +12,6 @@ from resources.health_check import HealthcheckResource
 from resources.home import Home
 from resources.time import TimeResource
 from resources.sink import SinkResource
-from resources import ServiceRequestResource, ServiceResource
 
 from constants import check_variables
 
@@ -23,7 +21,6 @@ def create():
         middleware=[
             ContextCreator(),
             InputOutputMiddleware(),
-            SessionManager(),
             SecureHeaders(),
         ]
     )
@@ -42,12 +39,6 @@ def create():
 
     time_resource = TimeResource()
     api.add_route("/time", time_resource)
-
-    service_request_resource = ServiceRequestResource()
-    api.add_route("/service/request", service_request_resource)
-
-    service_resource = ServiceResource()
-    api.add_route("/service", service_resource)
 
     return api
 

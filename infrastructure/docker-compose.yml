@@ -1,42 +1,22 @@
 services:
-  db:
-    build:
-      context: ../
-      dockerfile: ./infrastructure/mysql.dockerfile
-
-    container_name: database
-
-    ports:
-      - "3306:3306"
-
-    environment:
-      MYSQL_DATABASE: service_handler
-      MYSQL_ROOT_PASSWORD: default
-      MYSQL_USER: romanini
-      MYSQL_PASSWORD: default
-
   api:
     build:
       context: ../
-      dockerfile: ./infrastructure/api.dockerfile
-    container_name: service-handler-api
+      dockerfile: ./infrastructure/dockerfile
+    container_name: uav-api
     ports:
-      - "3000:3000"
-
+      - "3001:3001"
+    networks:
+      - app-network
     environment:
       APP_ENV: local
       GUNICORN_WORKERS: 2
       GUNICORN_WORKER_TIMEOUT: 360
       GUNICORN_RELOAD: True
-      SERVICE_NAME: service-handler-api
-      API_PORT: 3000
-      DB_NAME: service_handler
-      DB_USER: romanini
-      DB_PASSWORD: default
-      DB_PORT: 3306
-      DB_HOST: 0.0.0.0
+      SERVICE_NAME: uav-api
+      API_PORT: 3001
       INTERNAL_TOKEN: internal@123
-
-    depends_on:
-      - db
       
+networks:
+  app-network:
+    driver: bridge

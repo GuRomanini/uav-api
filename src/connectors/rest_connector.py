@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from abc import ABCMeta
 import json
 from requests import Response, request
@@ -23,7 +23,6 @@ class RestConnector(metaclass=ABCMeta):
         data=None,
         cert=None,
         verify=True,
-        error_bypass=False,
     ):
 
         headers["GlobalTraceId"] = self.context.global_trace_id
@@ -37,7 +36,7 @@ class RestConnector(metaclass=ABCMeta):
             to_log_json = {"payload": ""}
 
         self.logger.info(f"OUTGOING REQUEST {method} {url}", to_log_json)
-        start = datetime.utcnow()
+        start = datetime.now(tz=timezone.UTC)
 
         if data:
             response = request(
@@ -58,7 +57,7 @@ class RestConnector(metaclass=ABCMeta):
                 verify=verify,
             )
 
-        end = datetime.utcnow()
+        end = datetime.now(tz=timezone.UTC)
 
         base_response = BaseConnectorResponse(
             endpoint=endpoint,
@@ -78,9 +77,6 @@ class RestConnector(metaclass=ABCMeta):
             f"INCOMING RESPONSE {response.status_code} {method} {url} {took} ms",
             to_log_json,
         )
-
-        if base_response.response_status >= 300 and error_bypass is False:
-            raise BaseConnectorException(base_response)
 
         return base_response
 
