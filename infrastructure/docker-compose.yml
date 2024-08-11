@@ -1,5 +1,5 @@
 services:
-  api:
+  uav-api:
     build:
       context: ../
       dockerfile: ./infrastructure/dockerfile
@@ -16,6 +16,7 @@ services:
       SERVICE_NAME: uav-api
       API_PORT: 3001
       INTERNAL_TOKEN: internal@123
+      SERVICE_HANDLER_API_ADDRESS: http://service-handler-api:3000
       
 networks:
   app-network:
