@@ -1,1 +1,1 @@
-from connectors.ops_genie_connector import OpsGenieConnector
+from connectors.service_handler_connector import ServiceHandlerConnector

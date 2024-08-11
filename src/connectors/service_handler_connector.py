@@ -1,7 +1,7 @@
 from falcon import Response
 
 from utils.context import Context
-from connectors.rest_connector import BaseConnectorException, RestConnector
+from connectors.rest_connector import BaseConnectorException, BaseConnectorResponse, RestConnector
 
 from constants import SERVICE_HANDLER_API_ADDRESS
 
@@ -14,7 +14,9 @@ class ServiceHandlerConnector(RestConnector):
             "service_name": service_name,
             "service_type": service_type
         }
-        response = self.send(endpoint="/service", method="POST", payload=payload)
+        response: BaseConnectorResponse = self.send(endpoint="/service", method="POST", payload=payload, headers={"roles": "master"})
 
         if response.response_status != 201:
             raise BaseConnectorException(response)
+        
+        return response.response_json
