@@ -10,7 +10,7 @@ services:
       - app-network
     environment:
       APP_ENV: local
-      GUNICORN_WORKERS: 2
+      GUNICORN_WORKERS: 1
       GUNICORN_WORKER_TIMEOUT: 360
       GUNICORN_RELOAD: True
       SERVICE_NAME: uav-api
