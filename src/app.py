@@ -1,5 +1,9 @@
 import falcon
+from uuid import uuid4
 
+from connectors import ServiceHandlerConnector
+
+from utils.context import Context
 from utils.logger import LogHandler
 from utils.xml_handler import XMLHandler
 from errors import APIErrorHandler, BaseException, error_verification
@@ -58,6 +62,10 @@ def main():
     api.add_error_handler(Exception, APIErrorHandler.unexpected)
     api.add_error_handler(falcon.HTTPMethodNotAllowed, APIErrorHandler.method_not_allowed)
     api.add_error_handler(BaseException, APIErrorHandler.qi_exception)
+
+    service_handler_connector = ServiceHandlerConnector(context=Context(global_trace_id=str(uuid4())))
+    response = service_handler_connector.register_uav(uav_name="Sample UAV")
+
     return api
 
 
