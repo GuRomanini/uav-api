@@ -2,7 +2,6 @@ cryptography
 falcon
 google
 google-cloud-pubsub
-google-cloud-secret-manager
 google-cloud-storage
 gunicorn
 jsonschema
