@@ -16,8 +16,8 @@ services:
       SERVICE_NAME: uav-api
       API_PORT: 3001
       INTERNAL_TOKEN: internal@123
-      SERVICE_HANDLER_API_ADDRESS: http://service-handler-api:3000
-      
+      GCS_PROXY_ADDRESS: http://gcs-proxy:8080
+
 networks:
   app-network:
     driver: bridge

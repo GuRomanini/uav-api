@@ -7,7 +7,7 @@ BYPASS_ENDPOINTS = ["/", "/health_check"]
 SERVICE_NAME = environ.get("SERVICE_NAME")
 APP_ENV = environ.get("APP_ENV")
 
-SERVICE_HANDLER_API_ADDRESS = environ.get("SERVICE_HANDLER_API_ADDRESS")
+GCS_PROXY_ADDRESS = environ.get("GCS_PROXY_ADDRESS")
 
 INTERNAL_TOKEN = environ.get("INTERNAL_TOKEN")
 

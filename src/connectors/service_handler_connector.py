@@ -3,11 +3,11 @@ from falcon import Response
 from utils.context import Context
 from connectors.rest_connector import BaseConnectorException, BaseConnectorResponse, RestConnector
 
-from constants import SERVICE_HANDLER_API_ADDRESS
+from constants import GCS_PROXY_ADDRESS
 
 class ServiceHandlerConnector(RestConnector):
     def __init__(self, context: Context) -> None:
-        super().__init__(context, __name__, base_url=SERVICE_HANDLER_API_ADDRESS, timeout=60)
+        super().__init__(context, __name__, base_url=GCS_PROXY_ADDRESS, timeout=60)
 
     def register_uav(self, uav_name: str) -> dict:
         payload = {

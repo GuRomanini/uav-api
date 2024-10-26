@@ -39,8 +39,8 @@ spec:
             value: "3000"
           - name: APP_ENV
             value: "local"
-          - name: SERVICE_HANDLER_API_ADDRESS
-            value: "http://service-handler-api:3000"
+          - name: GCS_PROXY_ADDRESS
+            value: "http://gcs-proxy:3000"
           - name: PRIVATE_KEY_TEST
             value: "private-key-test"
           - name: PUBLIC_KEY_TEST

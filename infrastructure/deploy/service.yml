@@ -1,7 +1,7 @@
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
-  name: service-handler-api-backendconfig
+  name: uav-api-backendconfig
 spec:
   timeoutSec: 900
   connectionDraining:
@@ -10,11 +10,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-handler-api-service
+  name: uav-api-service
   namespace: default
   annotations:
     cloud.google.com/neg: '{"ingress":true}'
-    cloud.google.com/backend-config: '{"ports": {"3000":"service-handler-api-backendconfig"}}'
+    cloud.google.com/backend-config: '{"ports": {"3000":"uav-api-backendconfig"}}'
   labels:
     k8s-app: service-handler-api
 spec:
