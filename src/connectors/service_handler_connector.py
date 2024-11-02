@@ -1,9 +1,12 @@
-from falcon import Response
+import os
 
 from utils.context import Context
 from connectors.rest_connector import BaseConnectorException, BaseConnectorResponse, RestConnector
 
-from constants import GCS_PROXY_ADDRESS
+from constants import GCS_PROXY_ADDRESS, UAV_API_ADDRESS
+
+UAV_KEY = os.environ.get("UAV_KEY")
+
 
 class ServiceHandlerConnector(RestConnector):
     def __init__(self, context: Context) -> None:
@@ -13,21 +16,26 @@ class ServiceHandlerConnector(RestConnector):
         payload = {
             "uav_name": uav_name,
         }
-        response: BaseConnectorResponse = self.send(endpoint="/uav", method="POST", payload=payload, headers={"roles": "master"})
+        response: BaseConnectorResponse = self.send(
+            endpoint="/uav", method="POST", payload=payload, headers={"roles": "master"}
+        )
 
         if response.response_status != 201:
             raise BaseConnectorException(response)
-        
-        return response.response_json        
 
-    def register_service(self, service_name: str, service_type: str) -> dict:
+        return response.response_json
+
+    def register_service(self, service_name: str) -> dict:
         payload = {
             "service_name": service_name,
-            "service_type": service_type
+            "uav_key": UAV_KEY,
+            "base_url": UAV_API_ADDRESS,
         }
-        response: BaseConnectorResponse = self.send(endpoint="/service", method="POST", payload=payload, headers={"roles": "master"})
+        response: BaseConnectorResponse = self.send(
+            endpoint="/service", method="POST", payload=payload, headers={"roles": "master"}
+        )
 
         if response.response_status != 201:
             raise BaseConnectorException(response)
-        
+
         return response.response_json

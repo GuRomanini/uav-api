@@ -3,7 +3,6 @@ from falcon import Request, Response
 
 from controllers import ServiceController
 from utils.schema_handler import SchemaHandler
-from utils.security_tools import SecurityTools
 
 
 class ServiceResource:

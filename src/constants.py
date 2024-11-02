@@ -11,6 +11,8 @@ GCS_PROXY_ADDRESS = environ.get("GCS_PROXY_ADDRESS")
 
 INTERNAL_TOKEN = environ.get("INTERNAL_TOKEN")
 
+UAV_API_ADDRESS = environ.get("UAV_API_ADDRESS")
+
 
 def check_variables():
     variable_names = [k for k in dir() if (k[:2] != "__" and not callable(globals()[k]))]
