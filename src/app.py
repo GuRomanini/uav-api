@@ -1,4 +1,5 @@
 import falcon
+import os
 from uuid import uuid4
 
 from connectors import ServiceHandlerConnector
@@ -14,6 +15,7 @@ from middlewares.secure_headers import SecureHeaders
 
 from resources import (
     HealthcheckResource,
+    HelloWorldServiceResource,
     Home,
     ServiceResource,
     SinkResource,
@@ -50,6 +52,9 @@ def create():
     service_resource = ServiceResource()
     api.add_route("/service", service_resource)
 
+    hello_world_service_resource = HelloWorldServiceResource()
+    api.add_route("/service/hello_world", hello_world_service_resource)
+
     return api
 
 
@@ -65,6 +70,7 @@ def main():
 
     service_handler_connector = ServiceHandlerConnector(context=Context(global_trace_id=str(uuid4())))
     response = service_handler_connector.register_uav(uav_name="Sample UAV")
+    os.environ["UAV_KEY"] = response["uav_key"]
 
     return api
 

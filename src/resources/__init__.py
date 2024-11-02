@@ -1,3 +1,4 @@
+from resources.hello_world_service_resource import HelloWorldServiceResource
 from resources.service_resource import ServiceResource
 
 
