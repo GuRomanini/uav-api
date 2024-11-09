@@ -1,1 +1,2 @@
 from controllers.service_controller import ServiceController
+from controllers.service_hello_world_controller import ServiceHelloWorldController

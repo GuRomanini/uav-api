@@ -13,6 +13,8 @@ INTERNAL_TOKEN = environ.get("INTERNAL_TOKEN")
 
 UAV_API_ADDRESS = environ.get("UAV_API_ADDRESS")
 
+UAV_KEY = environ.get("UAV_KEY")
+
 
 def check_variables():
     variable_names = [k for k in dir() if (k[:2] != "__" and not callable(globals()[k]))]

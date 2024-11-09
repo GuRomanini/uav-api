@@ -1,22 +1,16 @@
 import falcon
-import os
-from uuid import uuid4
 
-from connectors import ServiceHandlerConnector
-
-from utils.context import Context
 from utils.logger import LogHandler
 from utils.xml_handler import XMLHandler
 from errors import APIErrorHandler, BaseException, error_verification
 
 from middlewares.context_creator import ContextCreator
 from middlewares.input_output import InputOutputMiddleware
-from middlewares.secure_headers import SecureHeaders
 
 from resources import (
     HealthcheckResource,
-    HelloWorldServiceResource,
     Home,
+    ServiceRequestResource,
     ServiceResource,
     SinkResource,
     TimeResource,
@@ -30,7 +24,6 @@ def create():
         middleware=[
             ContextCreator(),
             InputOutputMiddleware(),
-            SecureHeaders(),
         ]
     )
 
@@ -52,8 +45,8 @@ def create():
     service_resource = ServiceResource()
     api.add_route("/service", service_resource)
 
-    hello_world_service_resource = HelloWorldServiceResource()
-    api.add_route("/service/hello_world", hello_world_service_resource)
+    service_request_resource = ServiceRequestResource()
+    api.add_route("/service_request/request", service_request_resource)
 
     return api
 
@@ -67,10 +60,6 @@ def main():
     api.add_error_handler(Exception, APIErrorHandler.unexpected)
     api.add_error_handler(falcon.HTTPMethodNotAllowed, APIErrorHandler.method_not_allowed)
     api.add_error_handler(BaseException, APIErrorHandler.uaas_exception)
-
-    service_handler_connector = ServiceHandlerConnector(context=Context(global_trace_id=str(uuid4())))
-    response = service_handler_connector.register_uav(uav_name="Sample UAV")
-    os.environ["UAV_KEY"] = response["uav_key"]
 
     return api
 

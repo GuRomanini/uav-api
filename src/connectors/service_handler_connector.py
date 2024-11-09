@@ -1,11 +1,7 @@
-import os
-
 from utils.context import Context
 from connectors.rest_connector import BaseConnectorException, BaseConnectorResponse, RestConnector
 
-from constants import GCS_PROXY_ADDRESS, UAV_API_ADDRESS
-
-UAV_KEY = os.environ.get("UAV_KEY")
+from constants import GCS_PROXY_ADDRESS, UAV_API_ADDRESS, UAV_KEY
 
 
 class ServiceHandlerConnector(RestConnector):
@@ -25,14 +21,14 @@ class ServiceHandlerConnector(RestConnector):
 
         return response.response_json
 
-    def register_service(self, service_name: str) -> dict:
+    def register_service(self, service_name: str, service_endpoint: str) -> dict:
         payload = {
             "service_name": service_name,
             "uav_key": UAV_KEY,
-            "base_url": UAV_API_ADDRESS,
+            "base_url": UAV_API_ADDRESS + "/service_request/request",
         }
         response: BaseConnectorResponse = self.send(
-            endpoint="/service", method="POST", payload=payload, headers={"roles": "master"}
+            endpoint="/uav/service", method="POST", payload=payload, headers={"roles": "master"}
         )
 
         if response.response_status != 201:

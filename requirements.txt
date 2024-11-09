@@ -9,5 +9,4 @@ protobuf
 pydantic
 PyMySQL
 requests
-secure
 SQLAlchemy

@@ -7,19 +7,15 @@
       "minLength": 1,
       "maxLength": 100
     },
-    "service_type": {
+    "service_endpoint": {
       "type": "string",
-      "enum": [
-        "command",
-        "data",
-        "event",
-        "stream"
-      ]
+      "minLength": 1,
+      "maxLength": 100
     }
   },
   "required": [
     "service_name",
-    "service_type"
+    "service_endpoint"
   ],
   "additionalProperties": false
 }

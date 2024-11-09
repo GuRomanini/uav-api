@@ -13,5 +13,5 @@ class ServiceController:
 
         service_handler_connector = ServiceHandlerConnector(context=self.context)
         return service_handler_connector.register_service(
-            service_name=service_data["service_name"], service_type=service_data["service_type"]
+            service_name=service_data["service_name"], service_endpoint=service_data["service_endpoint"]
         )
