@@ -1,4 +1,3 @@
-from connectors import ServiceHandlerConnector
 from utils.context import Context
 from utils.logger import Logger
 
